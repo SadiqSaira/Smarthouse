@@ -13,7 +13,16 @@ class Thermostat extends Model
     ];
     public function device()
     {
-        return $this->morphMany(Device::class, 'deviceable');
+        return $this->morphOne(Device::class, 'deviceable');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($thermostat) {
+            optional($thermostat->device)->delete();
+        });
     }
 }
 
