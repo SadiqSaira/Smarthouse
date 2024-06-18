@@ -6,7 +6,7 @@
     <article v-for="location in locations" :key="location.id">
         <div class="flex">
             <h2>{{ location.name }}</h2>
-            <a href="/locations">Edit</a>
+            <a :href="'edit-location/' + location.id" class="btn"> Edit </a>
             <button>Delete</button>
         </div>
     </article>
