@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LocationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,5 +24,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/locations', [LocationController::class, 'index'])->name('location.index');
+Route::get('/edit-location/{id}', [LocationController::class, 'show'])->name('location.show');
+Route::post('/locations', [LocationController::class, 'store'])->name('location.store');
+Route::delete('/delete-location/{id}', [LocationController::class, 'delete'])->name('location.delete');
+
 
 require __DIR__.'/auth.php';
