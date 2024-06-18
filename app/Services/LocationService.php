@@ -25,9 +25,9 @@ class LocationService {
 
     public function add(LocationRequest $locationRequest) {
 
-        Log::info('Location Updated or Created:', [
-            'location id' => $locationRequest['id'],
-        ]);
+        // Log::info('Location Updated or Created:', [
+        //     'location id' => $locationRequest['id'],
+        // ]);
         Location::updateOrCreate(
             ['id' => (int)$locationRequest['id']],
             
