@@ -25,17 +25,17 @@ class LocationController extends Controller
         ]);
     }
 
-    public function show(LocationRequest $locationRequest) {
-        $location = $this->locationService->getLocationById($locationRequest);
+    public function show($id) {
+        $location = $this->locationService->getLocationById($id);
 
         
         // Log::info('Filtered Query:', [
         //     'output' => 'hello world',
         // ]);
 
-        Log::info('Logging requested tickets: ' . json_encode($locationRequest));
+        // Log::info('Logging requested tickets: ' . json_encode($locationRequest));
 
-        return inertia('Event/BookEvent', [
+        return Inertia::render('Locations/Edit', [
             'location' => $location,
         ]);
     }

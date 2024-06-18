@@ -9,14 +9,17 @@ class LocationService {
     public function __construct() {}
 
     public function getAll() {
-        return Location::all();
+        $locations = Location::all();
+        // Log::info('All locations', $locations);
+
+        return $locations;
     }
 
-    public function getLocationById(LocationRequest $locationRequest)
+    public function getLocationById($id)
     {
-        Log::info($locationRequest['locationId']);
+        // Log::info($locationRequest['locationId']);
 
-        $location = Location::findOrFail($locationRequest['locationId']);
+        $location = Location::findOrFail($id);
         return $location;
     }
 
