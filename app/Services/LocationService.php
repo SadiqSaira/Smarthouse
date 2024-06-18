@@ -23,4 +23,16 @@ class LocationService {
         return $location;
     }
 
+    public function add(LocationRequest $locationRequest) {
+
+        Location::updateOrCreate(
+            ['id' => (int)$locationRequest->id],
+            
+            [
+            'name' => $locationRequest['name'],
+            'address' => $locationRequest['address'],
+            ]
+    );
+    }
+
 }

@@ -28,15 +28,12 @@ class LocationController extends Controller
     public function show($id) {
         $location = $this->locationService->getLocationById($id);
 
-        
-        // Log::info('Filtered Query:', [
-        //     'output' => 'hello world',
-        // ]);
-
-        // Log::info('Logging requested tickets: ' . json_encode($locationRequest));
-
         return Inertia::render('Locations/Edit', [
             'location' => $location,
         ]);
+    }
+
+    public function store(LocationRequest $locationRequest) {
+        $this->locationService->add($locationRequest);
     }
 }
