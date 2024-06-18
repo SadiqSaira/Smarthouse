@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Services\LocationService;
+use App\Models\Location;
 use Inertia\Inertia;
 
 use Illuminate\Http\Request;
@@ -15,10 +16,10 @@ class LocationController extends Controller
     }
 
     public function index() {
-        $locations = $this->locationService->getAll();
+        // $locations = $this->locationService->getAll();
 
         return Inertia::render('Locations/Index', [
-            'locations' => $locations,
+            'locations' => Location::all(),
         ]);
     }
 }
