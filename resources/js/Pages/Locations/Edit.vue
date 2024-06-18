@@ -2,7 +2,7 @@
     <Head title="Edit location" />
     <h1>Edit {{ location.name }}</h1>
 
-    <form @submit.prevent="form.post(`/locations`)" method="post">
+    <form @submit.prevent="form.post(`/locations/${location.id}`)" method="post">
         <label for="location-name">Change location name:</label>
         <input
             id="location-name"
