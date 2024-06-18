@@ -28,5 +28,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/locations', [LocationController::class, 'index'])->name('location.index');
 Route::get('/edit-location/{id}', [LocationController::class, 'show'])->name('location.show');
 Route::post('/locations', [LocationController::class, 'store'])->name('location.store');
+Route::delete('/delete-location/{id}', [LocationController::class, 'delete'])->name('location.delete');
+
 
 require __DIR__.'/auth.php';
