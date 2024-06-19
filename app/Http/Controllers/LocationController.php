@@ -51,9 +51,7 @@ class LocationController extends Controller
 
         $locations = $this->locationService->getAll();
 
-        return Inertia::render('Locations/Index', [
-            'locations' => $locations,
-        ]); 
+        return Inertia::location(route('location.index')); 
     }
 
     public function add() {
