@@ -27,7 +27,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/locations', [LocationController::class, 'index'])->name('location.index');
-Route::get('/edit-location/{id}', [LocationController::class, 'show'])->name('location.show');
+Route::get('/edit-location/{id}', [LocationController::class, 'edit'])->name('location.edit');
+Route::get('/add-location', [LocationController::class, 'add'])->name('location.add');
+Route::post('/add-location', [LocationController::class, 'store'])->name('location.store');
+Route::get('/locations/{id}', [LocationController::class, 'show'])->name('location.show');
 Route::post('/locations/{id}', [LocationController::class, 'store'])->name('location.store');
 Route::delete('/delete-location/{id}', [LocationController::class, 'delete'])->name('location.delete');
 

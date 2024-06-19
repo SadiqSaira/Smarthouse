@@ -28,14 +28,23 @@ class LocationService {
         // Log::info('Location Updated or Created:', [
         //     'location id' => $locationRequest['id'],
         // ]);
-        Location::updateOrCreate(
-            ['id' => (int)$locationRequest['id']],
-            
-            [
-            'name' => $locationRequest['name'],
-            'address' => $locationRequest['address'],
-            ]
-    );
+        if($locationRequest['id']) {
+            Location::updateOrCreate(
+                ['id' => (int)$locationRequest['id']],
+                
+                [
+                'name' => $locationRequest['name'],
+                'address' => $locationRequest['address'],
+                ]
+            );
+        }
+        else {
+            Location::create([
+                'name' => $locationRequest['name'],
+                'address' => $locationRequest['address'],
+            ]);
+        }
+        
     }
     public function delete(LocationRequest $locationRequest){
         Location::where('id', $locationRequest['id'])->delete();    
