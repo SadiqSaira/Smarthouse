@@ -1,61 +1,60 @@
 <template>
-    <!-- <Head title="All Locations" /> -->
+    <!-- <Head title="All Rooms" /> -->
 
     <section class="flex flex-col justify-center items-center py-8">
-        <h1 class="pb-8 text-3xl">Your Locations</h1>
-
-        <a
-            v-for="location in locations"
-            :key="location.id"
+        <!-- {{ console.log(rooms[0].name) }} -->
+        <div
+            v-for="room in rooms"
+            :key="room.id"
             class="py-2 px-8 w-full flex justify-between max-w-3xl border-solid border-2 rounded-lg mb-4"
-            :href="'locations/' + location.id"
         >
-            <h2 class="text-xl leading-extra-loose">{{ location.name }}</h2>
+            <h2 class="text-xl leading-extra-loose">{{ room.name }}</h2>
             <div class="py-2 px-4">
                 <a
-                    :href="'edit-location/' + location.id"
+                    :href="'edit-location/' + room.id"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4 border-2 border-blue-500 hover:border-blue-700"
                 >
                     Edit
                 </a>
                 <button
                     class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mr-4"
-                    @click="deleteLocation(location.id)"
+                    @click="deleteLocation(room.id)"
                 >
                     Delete
                 </button>
             </div>
-        </a>
+        </div>
         <a
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4 border-2 border-blue-500 hover:border-blue-700"
             href="add-location/"
         >
-            Add new location
+            Add new room
         </a>
     </section>
 </template>
 
 <script>
 import { Head } from "@inertiajs/vue3";
-import { Inertia } from "@inertiajs/inertia";
+// import { Inertia } from "@inertiajs/inertia";
 
 export default {
+    name: "AllRooms",
     props: {
-        locations: {
+        rooms: {
             required: true,
         },
     },
-    methods: {
-        deleteLocation(id) {
-            if (confirm("Are you sure you want to delete this location?")) {
-                Inertia.delete(`/delete-location/${id}`, {
-                    onFinish: () => {
-                        this.$emit("location-deleted");
-                    },
-                });
-            }
-        },
-    },
+    // methods: {
+    //     deleteLocation(id) {
+    //         if (confirm("Are you sure you want to delete this location?")) {
+    //             Inertia.delete(`/delete-location/${id}`, {
+    //                 onFinish: () => {
+    //                     this.$emit("location-deleted");
+    //                 },
+    //             });
+    //         }
+    //     },
+    // },
     // data() {},
 };
 </script>
