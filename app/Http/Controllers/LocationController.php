@@ -5,6 +5,7 @@ use App\Services\LocationService;
 use App\Services\RoomService;
 use App\Http\Requests\LocationRequest;
 use Inertia\Inertia;
+use App\Models\Location;
 use Illuminate\Support\Facades\Log;
 
 
@@ -56,5 +57,13 @@ class LocationController extends Controller
 
     public function add() {
         return Inertia::render('Locations/Add');
+    }
+
+    public function delete(LocationRequest $locationRequest){
+        Location::where('id', $locationRequest['id'])->delete();    
+
+        Log::info('Here I am');
+        Log::info(Location::find($locationRequest['id']));
+        $this->index();
     }
 }

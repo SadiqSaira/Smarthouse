@@ -4,13 +4,14 @@
     <section class="flex flex-col justify-center items-center py-8">
         <h1 class="pb-8 text-3xl">Your Locations</h1>
 
-        <a
+        <div
             v-for="location in locations"
             :key="location.id"
             class="py-2 px-8 w-full flex justify-between max-w-3xl border-solid border-2 rounded-lg mb-4"
-            :href="'locations/' + location.id"
         >
-            <h2 class="text-xl leading-extra-loose">{{ location.name }}</h2>
+            <a :href="'locations/' + location.id">
+                <h2 class="text-xl leading-extra-loose">{{ location.name }}</h2>
+            </a>
             <div class="py-2 px-4">
                 <a
                     :href="'edit-location/' + location.id"
@@ -18,14 +19,21 @@
                 >
                     Edit
                 </a>
-                <button
-                    class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mr-4"
-                    @click="deleteLocation(location.id)"
+                <form
+                    method="delete"
+                    @submit.prevent="
+                        form.post(`/delete-location/${location.id}`)
+                    "
                 >
-                    Delete
-                </button>
+                    <button
+                        class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mr-4"
+                        type="submit"
+                    >
+                        Delete
+                    </button>
+                </form>
             </div>
-        </a>
+        </div>
         <a
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4 border-2 border-blue-500 hover:border-blue-700"
             href="add-location/"
@@ -36,8 +44,10 @@
 </template>
 
 <script>
-import { Head } from "@inertiajs/vue3";
+import { Head, router, useForm } from "@inertiajs/vue3";
 import { Inertia } from "@inertiajs/inertia";
+
+const form = useForm({});
 
 export default {
     props: {
@@ -53,10 +63,16 @@ export default {
                         this.$emit("location-deleted");
                     },
                 });
+                // router.delete(`/delete-location/${id}`);
+                // alert("hi");
             }
         },
     },
-    // data() {},
+    data() {
+        return {
+            form: form,
+        };
+    },
 };
 </script>
 
