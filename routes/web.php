@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\LocationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,12 @@ Route::get('/locations', [LocationController::class, 'index'])->name('location.i
 Route::get('/edit-location/{id}', [LocationController::class, 'show'])->name('location.show');
 Route::post('/locations/{id}', [LocationController::class, 'store'])->name('location.store');
 Route::delete('/delete-location/{id}', [LocationController::class, 'delete'])->name('location.delete');
+
+//we need to select all rooms based on location id.
+Route::get('/rooms/{id}', [RoomController::class, 'index'])->name('room.index');
+Route::get('/edit-room/{id}', [RoomController::class, 'show'])->name('room.show');
+Route::post('/room/{id}', [RoomController::class, 'store'])->name('room.store');
+Route::delete('/delete-room/{id}', [RoomController::class, 'delete'])->name('room.delete');
 
 
 require __DIR__.'/auth.php';

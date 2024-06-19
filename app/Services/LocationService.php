@@ -37,5 +37,8 @@ class LocationService {
             ]
     );
     }
+    public function delete(LocationRequest $locationRequest){
+        Location::where('id', $locationRequest['id'])->delete();    
+    }
 
 }
