@@ -35,5 +35,15 @@ class LocationController extends Controller
 
     public function store(LocationRequest $locationRequest) {
         $this->locationService->add($locationRequest);
+
+        $locations = $this->locationService->getAll();
+
+        return Inertia::render('Locations/Index', [
+            'locations' => $locations,
+        ]); 
+    }
+
+    public function add() {
+        return Inertia::render('Locations/Add');
     }
 }
