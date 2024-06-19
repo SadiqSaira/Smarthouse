@@ -19,6 +19,7 @@
                 </a>
                 <button
                     class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mr-4"
+                    @click="deleteLocation(location.id)"
                 >
                     Delete
                 </button>
@@ -29,11 +30,23 @@
 
 <script>
 import { Head } from "@inertiajs/vue3";
+import { Inertia } from "@inertiajs/inertia";
 
 export default {
     props: {
         locations: {
             required: true,
+        },
+    },
+    methods: {
+        deleteLocation(id) {
+            if (confirm("Are you sure you want to delete this location?")) {
+                Inertia.delete(`/delete-location/${id}`, {
+                    onFinish: () => {
+                        this.$emit("location-deleted");
+                    },
+                });
+            }
         },
     },
     data() {},
