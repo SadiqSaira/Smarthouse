@@ -36,4 +36,8 @@ class RoomController extends Controller
     public function store(RoomRequest $roomRequest) {
         $this->roomService->add($roomRequest);
     }
+
+    public function add() {
+        return Inertia::render('Rooms/Add');
+    }
 }

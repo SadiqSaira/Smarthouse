@@ -19,19 +19,12 @@
                 >
                     Edit
                 </a>
-                <form
-                    method="delete"
-                    @submit.prevent="
-                        form.post(`/delete-location/${location.id}`)
-                    "
+                <button
+                    class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mr-4"
+                    type="submit"
                 >
-                    <button
-                        class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mr-4"
-                        type="submit"
-                    >
-                        Delete
-                    </button>
-                </form>
+                    Delete
+                </button>
             </div>
         </div>
         <a
