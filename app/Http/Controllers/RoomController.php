@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Services\RoomService;
 use App\Http\Requests\RoomRequest;
 use Inertia\Inertia;
+use App\Models\Room;
 use Illuminate\Support\Facades\Log;
 
 
@@ -35,5 +36,13 @@ class RoomController extends Controller
 
     public function store(RoomRequest $roomRequest) {
         $this->roomService->add($roomRequest);
+    }
+
+    public function add() {
+        return Inertia::render('Rooms/Add');
+    }
+
+    public function delete($id){
+        Room::where('id', $id)->delete();    
     }
 }

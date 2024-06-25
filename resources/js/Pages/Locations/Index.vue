@@ -1,6 +1,4 @@
 <template>
-    <!-- <Head title="All Locations" /> -->
-
     <section class="flex flex-col justify-center items-center py-8">
         <h1 class="pb-8 text-3xl">Your Locations</h1>
 
@@ -19,19 +17,13 @@
                 >
                     Edit
                 </a>
-                <form
-                    method="delete"
-                    @submit.prevent="
-                        form.post(`/delete-location/${location.id}`)
-                    "
+                <button
+                    class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mr-4"
+                    type="submit"
+                    @click="deleteLocation(location.id)"
                 >
-                    <button
-                        class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mr-4"
-                        type="submit"
-                    >
-                        Delete
-                    </button>
-                </form>
+                    Delete
+                </button>
             </div>
         </div>
         <a
@@ -58,13 +50,7 @@ export default {
     methods: {
         deleteLocation(id) {
             if (confirm("Are you sure you want to delete this location?")) {
-                Inertia.delete(`/delete-location/${id}`, {
-                    onFinish: () => {
-                        this.$emit("location-deleted");
-                    },
-                });
-                // router.delete(`/delete-location/${id}`);
-                // alert("hi");
+                this.$inertia.delete(`/delete-location/${id}`);
             }
         },
     },

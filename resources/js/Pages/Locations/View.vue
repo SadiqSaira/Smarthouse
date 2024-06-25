@@ -1,6 +1,4 @@
 <template>
-    <!-- <Head title="View location" /> -->
-
     <section class="flex flex-col justify-center items-center py-8">
         <h1 class="pb-8 text-3xl">
             Your rooms at location:
@@ -12,7 +10,6 @@
 </template>
 
 <script>
-import { Head } from "@inertiajs/vue3";
 import AllRooms from "../Rooms/Index.vue";
 
 export default {
@@ -27,6 +24,5 @@ export default {
     components: {
         AllRooms,
     },
-    // data() {},
 };
 </script>
