@@ -15,13 +15,14 @@ class LocationController extends Controller
 {
     private $locationService;
     private $roomService;
+    private $location;
+    public function __construct() {
 
-    public function __construct(LocationService $locationService, RoomService $roomService) {
-        $this->locationService = $locationService;
-        $this->roomService = $roomService;
     }
 
     public function index() {
+
+        $this->locationService = new LocationService(new Location());
         $locations = $this->locationService->getAll();
 
         return Inertia::render('Locations/Index', [
@@ -30,8 +31,11 @@ class LocationController extends Controller
     }
 
     public function show($id) {
-        $location = $this->locationService->getLocationById($id);
-        $rooms = $this->roomService->getRoomsByLocationId($id);
+        $this->createLocationFromId($id);
+        $this->roomService = new RoomService();
+        
+        $location = $this->locationService->getLocationById();
+        $rooms = $this->roomService->getRoomsByLocationId($location->id);
 
         return Inertia::render('Locations/View', [
             'location' => $location,
@@ -40,7 +44,9 @@ class LocationController extends Controller
     }
 
     public function edit($id) {
-        $location = $this->locationService->getLocationById($id);
+        $this->createLocationFromId($id);
+
+        $location = $this->locationService->getLocationById();
 
         return Inertia::render('Locations/Edit', [
             'location' => $location,
@@ -48,7 +54,10 @@ class LocationController extends Controller
     }
 
     public function store(LocationRequest $locationRequest) {
-        $this->locationService->add($locationRequest);
+        
+        $this->createLocationFromRequest($locationRequest);
+
+        $this->locationService->add();
 
         $locations = $this->locationService->getAll();
 
@@ -61,5 +70,18 @@ class LocationController extends Controller
 
     public function delete($id){
         Location::where('id', $id)->delete();    
+    }
+
+    public function createLocationFromRequest(LocationRequest $locationRequest){
+        $this->location = new Location();
+        $this->location->id = $locationRequest['id'];
+        $this->location->name = $locationRequest['name'];
+        $this->location->address = $locationRequest['address'];
+        $this->locationService = new LocationService($this->location);
+    }
+    public function createLocationFromId($id){
+        $this->location = new Location();
+        $this->location->id = $id;
+        $this->locationService = new LocationService($this->location);
     }
 }

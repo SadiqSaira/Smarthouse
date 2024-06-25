@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 
 class Device extends Model
@@ -17,15 +19,15 @@ class Device extends Model
     ];
 
     
-    public function devicetype()
+    public function devicetype(): BelongsTo
     {
         return $this->belongsTo(DeviceType::class);
     }
-    public function room()
+    public function room(): BelongsTo
     {
         return $this->belongsTo(Room::class);
     }
-    public function deviceable()
+    public function deviceable(): MorphTo
     {
         return $this->morphTo();
     }

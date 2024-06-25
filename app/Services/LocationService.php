@@ -6,7 +6,10 @@ use App\Http\Requests\LocationRequest;
 use Illuminate\Support\Facades\Log;
 
 class LocationService {
-    public function __construct() {}
+    protected $location;
+    public function __construct(Location $location) {
+        $this->location = $location;
+    }
 
     public function getAll() {
         $locations = Location::all();
@@ -15,39 +18,39 @@ class LocationService {
         return $locations;
     }
 
-    public function getLocationById($id)
+    public function getLocationById()
     {
         // Log::info($locationRequest['locationId']);
 
-        $location = Location::findOrFail($id);
+        $location = Location::findOrFail($this->location->id);
         return $location;
     }
 
-    public function add(LocationRequest $locationRequest) {
+    public function add() {
 
         // Log::info('Location Updated or Created:', [
-        //     'location id' => $locationRequest['id'],
+        //     'location id' => $this->location->id,
         // ]);
-        if($locationRequest['id']) {
+        if($this->location->id) {
             Location::updateOrCreate(
-                ['id' => (int)$locationRequest['id']],
+                ['id' => $this->location->id],
                 
                 [
-                'name' => $locationRequest['name'],
-                'address' => $locationRequest['address'],
+                'name' => $this->location->name,
+                'address' => $this->location->address,
                 ]
             );
         }
         else {
             Location::create([
-                'name' => $locationRequest['name'],
-                'address' => $locationRequest['address'],
+                'name' => $this->location->name,
+                'address' => $this->location->address,
             ]);
         }
         
     }
-    public function delete(LocationRequest $locationRequest){
-        Location::where('id', $locationRequest['id'])->delete();    
+    public function delete(){
+        Location::where('id', $this->location->id)->delete();    
     }
 
 }
