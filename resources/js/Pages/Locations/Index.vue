@@ -1,6 +1,4 @@
 <template>
-    <!-- <Head title="All Locations" /> -->
-
     <section class="flex flex-col justify-center items-center py-8">
         <h1 class="pb-8 text-3xl">Your Locations</h1>
 

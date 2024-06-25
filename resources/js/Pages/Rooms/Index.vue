@@ -1,8 +1,5 @@
 <template>
-    <!-- <Head title="All Rooms" /> -->
-
     <section class="flex flex-col justify-center items-center py-8 w-full">
-        <!-- {{ console.log(rooms[0].name) }} -->
         <div
             v-for="room in rooms"
             :key="room.id"
@@ -18,7 +15,7 @@
                 </a>
                 <button
                     class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mr-4"
-                    @click="deleteLocation(room.id)"
+                    @click="deleteRoom(room.id)"
                 >
                     Delete
                 </button>
@@ -35,7 +32,6 @@
 
 <script>
 import { Head } from "@inertiajs/vue3";
-// import { Inertia } from "@inertiajs/inertia";
 
 export default {
     name: "AllRooms",
@@ -44,18 +40,13 @@ export default {
             required: true,
         },
     },
-    // methods: {
-    //     deleteLocation(id) {
-    //         if (confirm("Are you sure you want to delete this location?")) {
-    //             Inertia.delete(`/delete-location/${id}`, {
-    //                 onFinish: () => {
-    //                     this.$emit("location-deleted");
-    //                 },
-    //             });
-    //         }
-    //     },
-    // },
-    // data() {},
+    methods: {
+        deleteRoom(id) {
+            if (confirm("Are you sure you want to delete this room?")) {
+                this.$inertia.delete(`/delete-room/${id}`);
+            }
+        },
+    },
 };
 </script>
 
