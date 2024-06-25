@@ -59,11 +59,7 @@ class LocationController extends Controller
         return Inertia::render('Locations/Add');
     }
 
-    public function delete(LocationRequest $locationRequest){
-        Location::where('id', $locationRequest['id'])->delete();    
-
-        Log::info('Here I am');
-        Log::info(Location::find($locationRequest['id']));
-        $this->index();
+    public function delete($id){
+        Location::where('id', $id)->delete();    
     }
 }
