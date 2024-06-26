@@ -15,7 +15,6 @@ class LocationController extends Controller
 {
     private $locationService;
     private $roomService;
-    private $location;
     public function __construct(RoomServiceInterface $roomService, LocationServiceInterface $locationService) {
         $this->locationService = $locationService;
         $this->roomService = $roomService;
@@ -32,7 +31,6 @@ class LocationController extends Controller
     }
 
     public function show($id) {
-        $this->roomService = new RoomService();
         
         $location = $this->locationService->getLocationById($id);
         $rooms = $this->roomService->getRoomsByLocationId($location->id);

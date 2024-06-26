@@ -8,6 +8,7 @@ use App\Models\Location;
 use App\Models\Room;
 use App\Http\Requests\RoomRequest;
 use App\Http\Requests\LocationRequest;
+use App\Repositories\LocationRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Log;
 
@@ -18,13 +19,16 @@ class RoomServiceTest extends TestCase
   
     private $roomService;
     private $locationService;
+
+    private $locationRepository;
     private $location;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->roomService = new RoomService();
-        $this->locationService = new LocationService();
+        $this->locationRepository = new LocationRepository();
+        $this->locationService = new LocationService($this->locationRepository);
         $this->createLocation();
     }
     public function createLocation(){
