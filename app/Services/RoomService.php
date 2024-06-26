@@ -5,7 +5,7 @@ use App\Models\Room;
 use App\Http\Requests\RoomRequest;
 use Illuminate\Support\Facades\Log;
 
-class RoomService {
+class RoomService implements RoomServiceInterface{
     public function __construct() {}
 
     public function getRoomsByLocationId($location_id) {
