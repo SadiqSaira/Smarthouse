@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Unit\Services;
+namespace Tests\Feature\Services;
 
 use App\Services\RoomService;
 use App\Services\LocationService;
@@ -32,10 +32,9 @@ class RoomServiceTest extends TestCase
         $this->createLocation();
     }
     public function createLocation(){
-        $locationRequest = new LocationRequest([
-            'name' => 'Test Location 1',
-            'address' => 'Test address 1',
-        ]);
+        $locationRequest = new LocationRequest(['name' => 'Test Location 1',
+                                                'address' => 'Test address 1',
+                                               ]);
         $this->locationService->add($locationRequest);
         $this->location = Location::first();
     }
@@ -45,64 +44,57 @@ class RoomServiceTest extends TestCase
     {
 
         // Assert the location was created
-        $this->assertDatabaseHas('locations', [
-            'id' => $this->location->id,
-            'name' => 'Test Location 1',
-            'address' => 'Test address 1',
-        ]);
+        $this->assertDatabaseHas('locations', ['id' => $this->location->id,
+                                                'name' => 'Test Location 1',
+                                                'address' => 'Test address 1',
+                                              ]);
 
         // Create room request
-        $roomRequest = new RoomRequest([
-            'name' => 'Test Room',
-            'location_id' => $this->location->id,
-        ]);
+        $roomRequest = new RoomRequest(['name' => 'Test Room',
+                                        'location_id' => $this->location->id,
+                                       ]);
         
         // Add room
         $this->roomService->add($roomRequest);
         $room = Room::first(); 
 
         // Assert the room was created
-        $this->assertDatabaseHas('rooms', [
-            'id' => $room->id,
-            'name' => 'Test Room',
-            'location_id' => $this->location->id,
-        ]);
+        $this->assertDatabaseHas('rooms', ['id' => $room->id,
+                                            'name' => 'Test Room',
+                                            'location_id' => $this->location->id,
+                                          ]);
 
         $this->refreshDatabase();
     }
     public function test_it_can_update_a_room(){
 
         // Create room request
-        $roomRequest = new RoomRequest([
-            'name' => 'Test Room',
-            'location_id' => $this->location->id,
-        ]);
+        $roomRequest = new RoomRequest(['name' => 'Test Room',
+                                        'location_id' => $this->location->id,
+                                       ]);
         Log::info('Updating room with request:', $roomRequest->all());
 
         // Add room
         $this->roomService->add($roomRequest);
         $room = Room::first(); 
-        $roomRequest = new RoomRequest([
-            'id' => $room->id,
-            'name' => 'Test Room update',
-            'location_id' => $this->location->id,
-        ]);
+        $roomRequest = new RoomRequest(['id' => $room->id,
+                                        'name' => 'Test Room update',
+                                        'location_id' => $this->location->id,
+                                       ]);
         $this->roomService->add($roomRequest);
         // Assert the room was created
-        $this->assertDatabaseHas('rooms', [
-            'id' => $room->id,
-            'name' => 'Test Room update',
-            'location_id' => $this->location->id,
-        ]);
+        $this->assertDatabaseHas('rooms', ['id' => $room->id,
+                                            'name' => 'Test Room update',
+                                            'location_id' => $this->location->id,
+                                          ]);
 
     }
     public function test_it_can_delete_a_room(){
 
         // Create room request
-        $roomRequest = new RoomRequest([
-            'name' => 'Test Room',
-            'location_id' => $this->location->id,
-        ]);
+        $roomRequest = new RoomRequest([ 'name' => 'Test Room',
+                                         'location_id' => $this->location->id,
+                                       ]);
 
         // Add room
         $this->roomService->add($roomRequest);

@@ -31,7 +31,7 @@ class LocationControllerTest extends TestCase
         $this->app->instance(RoomServiceInterface::class, $this->roomServiceMock);
     }
 
-    public function test_index()
+    public function test_it_can_get_all_location()
     {
         $locations = collect([
             new Location(['name' => 'Test Location 1', 
@@ -61,7 +61,7 @@ class LocationControllerTest extends TestCase
         $this->assertCount(2, $page['props']['locations']);
     }
 
-    public function test_show_location_by_id()
+    public function test_it_can_show_location_by_id()
     {
         $location = new Location(['id' => 1,
                                   'name' => 'Test Location 1', 
@@ -69,10 +69,11 @@ class LocationControllerTest extends TestCase
                                 ]);
 
 
-        $rooms = collect([
-            new Room(['name' => 'Room 1', 'location_id' => 1]),
-            new Room(['name' => 'Room 2', 'location_id' => 1]),
-        ]);
+        $rooms = collect([new Room(['name' => 'Room 1', 
+                                    'location_id' => 1]),
+                          new Room(['name' => 'Room 2', 
+                                     'location_id' => 1]),
+                         ]);
 
         $this->locationServiceMock
             ->shouldReceive('getLocationById')
@@ -102,7 +103,7 @@ class LocationControllerTest extends TestCase
         $this->assertCount(2, $page['props']['rooms']);
     }
 
-    public function test_edit_location_by_id()
+    public function test_it_can_edit_location_by_id()
     {
         $location = new Location(['id' => 1,
                                   'name' => 'Test Location 1', 
@@ -129,19 +130,17 @@ class LocationControllerTest extends TestCase
         $this->assertEquals($location->toArray(), $page['props']['location']);
     }
 
-    public function test_store_location()
+    public function test_it_can_store_location()
     {
-        $request = new LocationRequest([
-            'id' => 1,
-            'name' => 'Test Location 1',
-            'address' => '123 Main St',
-        ]);
+        $request = new LocationRequest(['id' => 1,
+                                        'name' => 'Test Location 1',
+                                        'address' => '123 Main St',
+                                       ]);
 
-        $incomingFields = [
-            'id' => 1,
-            'name' => 'Test Location 1',
-            'address' => '123 Main St',
-        ];
+        $incomingFields = ['id' => 1,
+                           'name' => 'Test Location 1',
+                           'address' => '123 Main St',
+                          ];
 
         $this->locationServiceMock
             ->shouldReceive('add')
@@ -149,8 +148,12 @@ class LocationControllerTest extends TestCase
             ->with($incomingFields);
 
         $locations = collect([
-            new Location(['name' => 'Test Location 1', 'address' => '123 Main St']),
-            new Location(['name' => 'Test Location 2', 'address' => '456 Elm St']),
+            new Location(['name' => 'Test Location 1', 
+                          'address' => '123 Main St'
+                         ]),
+            new Location(['name' => 'Test Location 2', 
+                          'address' => '456 Elm St'
+                         ]),
         ]);
 
         $this->locationServiceMock
@@ -169,7 +172,7 @@ class LocationControllerTest extends TestCase
         
     }
 
-    public function test_add_location()
+    public function test_it_can_add_location()
     {
         $controller = new LocationController($this->roomServiceMock, $this->locationServiceMock);
 
@@ -184,7 +187,7 @@ class LocationControllerTest extends TestCase
         $this->assertEquals('Locations/Add', $page['component']);
     }
 
-    public function test_delete_location_by_id()
+    public function test_it_can_delete_location_by_id()
     {
         $this->locationServiceMock
             ->shouldReceive('delete')
