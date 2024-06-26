@@ -6,7 +6,7 @@ use Tests\TestCase;
 use App\Models\Location;
 use App\Repositories\LocationRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
+//
 class LocationRepositoryTest extends TestCase
 {
     use RefreshDatabase;

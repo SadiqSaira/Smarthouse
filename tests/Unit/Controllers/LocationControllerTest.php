@@ -14,7 +14,7 @@ use App\Http\Resources\LocationResource;
 use App\Http\Requests\LocationRequest;
 use Inertia\Inertia;
 use Inertia\Response;
-
+//
 class LocationControllerTest extends TestCase
 {
     protected $locationServiceMock;
